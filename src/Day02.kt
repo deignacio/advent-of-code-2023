@@ -8,9 +8,9 @@ fun main() {
         val moveList = input.substringAfter(": ")
         val moves = moveList.split("; ").map {
             s: String ->
-                s.split(", ").map {
-                    it.substringAfter(" ") to it.substringBefore(" ") .toInt()
-                }.toMap()
+            s.split(", ").associate {
+                it.substringAfter(" ") to it.substringBefore(" ").toInt()
+            }
         }
         return Game(id, moves)
     }
@@ -28,10 +28,10 @@ fun main() {
         }
         fun scoreLine(line: String): Int {
             val game = parseLine(line)
-            if (isValidGame(game, constraints)) {
-                return game.id
+            return if (isValidGame(game, constraints)) {
+                game.id
             } else {
-                return 0
+                0
             }
         }
         return input.sumOf {
